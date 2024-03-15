@@ -12,7 +12,8 @@
 
       table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate; /* This separates the border of each cell */
+        border-spacing: 0 10px; /* This creates space between rows without affecting columns */
         table-layout: fixed;
       }
 
@@ -20,15 +21,10 @@
       td {
         text-align: center;
         padding: 8px;
-        border-bottom: 1px solid #ddd;
-        /* margin: 8px 8px; */
       }
       td {
         background-color: #e6e2d3;
       }
-      /* thead th {
-        background-color: #f0f0f0;
-      } */
 
       .event-form {
         display: flex;
