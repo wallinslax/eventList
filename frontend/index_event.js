@@ -91,9 +91,9 @@ class EventView {
     const eventListTBody = document.querySelector("#event-list tbody");
     const newEventRow = document.createElement("tr");
     newEventRow.innerHTML = `
-    <td><input type="text" class="event__name-input" placeholder="Event Name"/></td>
-    <td><input type="date" class="event__start-input"/></td>
-    <td><input type="date" class="event__end-input"/></td>
+    <td><input type="text" class="event__name-input" placeholder="Event Name" required/></td>
+    <td><input type="date" class="event__start-input" required/></td>
+    <td><input type="date" class="event__end-input" required/></td>
     <td>
       <div class="event__actions">
         <button class="event__save-new-btn">
@@ -129,6 +129,28 @@ class EventView {
       .value.trim();
     const eventStart = newEventRow.querySelector(".event__start-input").value;
     const eventEnd = newEventRow.querySelector(".event__end-input").value;
+
+    //check if the event name is empty
+    if (!eventName) {
+      alert("Please enter an event name.");
+      return;
+    }
+
+    // Convert dates from string to Date objects to compare
+    const startDate = new Date(eventStart);
+    const endDate = new Date(eventEnd);
+
+    // Check if dates are valid
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      alert("Please enter valid dates.");
+      return;
+    }
+
+    // Check if the end date is after the start date
+    if (endDate <= startDate) {
+      alert("The end date must be later than the start date.");
+      return;
+    }
 
     // Validation or further action to save the new event
     // this.onAddEvent can be a method passed down from the EventController
