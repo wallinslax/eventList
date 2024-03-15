@@ -13,33 +13,79 @@
       table {
         width: 100%;
         border-collapse: collapse;
+        table-layout: fixed;
       }
 
       th,
       td {
-        text-align: left;
+        text-align: center;
         padding: 8px;
         border-bottom: 1px solid #ddd;
+        /* margin: 8px 8px; */
       }
-
-      th {
-        background-color: #f2f2f2;
+      td {
+        background-color: #e6e2d3;
       }
+      /* thead th {
+        background-color: #f0f0f0;
+      } */
 
       .event-form {
+        display: flex;
+        justify-content: center; /* Aligns children (the button) horizontally center */
         margin-bottom: 20px;
+      }
+
+      #event-list {
+        padding: 20px;
+        border: 2px solid #e6e2d3;
+        border-radius: 2rem;
       }
 
       .event__actions button {
         margin-right: 5px;
         cursor: pointer;
       }
+      #add-event-btn,
+      .event__save-new-btn,
+      .event__edit-btn,
+      .event__save-btn {
+        color: #ffffff;
+        background: #008cba;
+        border: none;
+      }
+      .event__cancel-new-btn,
+      .event__del-btn,
+      .event__cancel-btn {
+        color: #ffffff;
+        background: #c94c4c;
+        border: none;
+      }
+
+      /* Set the size of the icons */
+      .event__actions svg {
+        fill: currentColor;
+        width: 24px;
+        height: 24px;
+      }
+
+      #add-event-btn {
+        height: 50px;
+      }
+
+      /* Style to remove focus outline from buttons */
+      button {
+        border-radius: 0.5rem;
+        padding: 8px 16px;
+      }
+      button:focus {
+        outline: none;
+      }
 
       /* Additional styles can be added here */
     </style>
   </head>
   <body>
-    <h1>Event List</h1>
     <form class="event-form" id="new-event-form">
       <button type="submit" id="add-event-btn">Add New Event</button>
     </form>
