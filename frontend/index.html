@@ -36,10 +36,21 @@
         margin-bottom: 20px;
       }
 
-      #event-list {
+      .table-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically, if there's enough vertical space */
+        margin: 20px auto; /* Specify the margin around the table container */
         padding: 20px;
-        border: 2px solid #e6e2d3;
-        border-radius: 2rem;
+        border: 4px solid #e6e2d3;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a 'lifted' effect */
+        background-color: white; /* Or any color that fits your design */
+      }
+
+      #event-list {
+        width: 100%; /* Let the table size according to its content */
+        margin: 0;
       }
 
       .event__actions button {
@@ -89,20 +100,21 @@
     <form class="event-form" id="new-event-form">
       <button type="submit" id="add-event-btn">Add New Event</button>
     </form>
-
-    <table id="event-list">
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Event rows will be inserted here by JavaScript -->
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table id="event-list">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Event rows will be inserted here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
 
     <script src="index_event.js"></script>
   </body>
