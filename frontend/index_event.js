@@ -81,34 +81,56 @@ class EventModel {
 class EventView {
   constructor() {
     // Reference form elements, list container, etc.
-    // Setup event listeners for add, edit, delete, etc.
-    this.eventListDiv = document.getElementById("event-list");
-    this.eventNameInput = document.getElementById("event-name");
-    this.eventStartDateInput = document.getElementById("event-start-date");
-    this.eventEndDateInput = document.getElementById("event-end-date");
     this.addEventButton = document.getElementById("add-event-btn");
-
     this.addEventButton.addEventListener("click", (e) => {
       e.preventDefault();
-      this.handleAddEvent();
+      this.addNewEventRow();
     });
   }
+  addNewEventRow() {
+    const eventListTBody = document.querySelector("#event-list tbody");
+    const newEventRow = document.createElement("tr");
+    newEventRow.innerHTML = `
+      <td><input type="text" class="event__name-input" placeholder="Event Name"/></td>
+      <td><input type="date" class="event__start-input"/></td>
+      <td><input type="date" class="event__end-input"/></td>
+      <td>
+        <div class="event__actions">
+          <button class="event__save-new-btn">Save</button>
+          <button class="event__cancel-new-btn">Cancel</button>
+        </div>
+      </td>
+    `;
+    eventListTBody.append(newEventRow); // Adds the new row at the top of the tbody
 
-  handleAddEvent() {
-    const name = this.eventNameInput.value.trim();
-    const startDate = this.eventStartDateInput.value.trim();
-    const endDate = this.eventEndDateInput.value.trim();
-
-    // Basic validation, can be expanded as needed
-    if (name && startDate && endDate) {
-      this.onAddEvent({
-        eventName: name,
-        startDate: startDate,
-        endDate: endDate,
+    // Attach event listeners to the save and cancel buttons
+    newEventRow
+      .querySelector(".event__save-new-btn")
+      .addEventListener("click", () => {
+        this.onSaveNewEvent(newEventRow);
       });
-    } else {
-      alert("Please fill in all fields.");
-    }
+
+    newEventRow
+      .querySelector(".event__cancel-new-btn")
+      .addEventListener("click", () => {
+        newEventRow.remove();
+      });
+  }
+
+  onSaveNewEvent(newEventRow) {
+    const eventName = newEventRow
+      .querySelector(".event__name-input")
+      .value.trim();
+    const eventStart = newEventRow.querySelector(".event__start-input").value;
+    const eventEnd = newEventRow.querySelector(".event__end-input").value;
+
+    // Validation or further action to save the new event
+    // this.onAddEvent can be a method passed down from the EventController
+    this.onAddEvent({
+      eventName: eventName,
+      startDate: eventStart,
+      endDate: eventEnd,
+    });
   }
 
   onAddEvent(callback) {
