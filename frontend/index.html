@@ -12,22 +12,58 @@
 
       .event-list-container {
         margin-top: 20px;
+        display: flex;
+        flex-direction: column;
       }
 
+      .event-header,
       .event {
-        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        margin-bottom: 10px;
       }
 
-      .event__info {
-        margin-bottom: 5px;
+      .event-header {
+        background-color: #f0f0f0;
+        font-weight: bold;
       }
 
+      .event__info,
+      .event__actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .event__info > span,
+      .event__actions > button {
+        margin: 0 10px;
+      }
+
+      .event__info > span {
+        min-width: 90px;
+      }
+
+      .event__actions {
+        min-width: 120px;
+      }
+
+      /* Input fields for editing */
+      .event__info > input {
+        margin: 0 10px;
+        display: none; /* Hide inputs initially */
+      }
+
+      /* Button styles */
       .event__actions button {
+        padding: 5px 10px;
         margin-right: 5px;
+        cursor: pointer;
       }
+
+      /* Additional styles can be added here */
     </style>
   </head>
   <body>
@@ -38,8 +74,16 @@
       <input type="date" id="event-end-date" required />
       <button type="submit" id="add-event-btn">Add New Event</button>
     </form>
-    <div class="event-list-container" id="event-list">
-      <!-- Events will be rendered here -->
+    <div class="event-list-container">
+      <div class="event-header">
+        <div>Event</div>
+        <div>Start</div>
+        <div>End</div>
+        <div>Actions</div>
+      </div>
+      <div id="event-list">
+        <!-- Events will be rendered here -->
+      </div>
     </div>
     <script src="index_event.js"></script>
   </body>

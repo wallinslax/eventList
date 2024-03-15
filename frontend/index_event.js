@@ -170,26 +170,23 @@ class EventView {
   }
 
   toggleEdit(eventDiv, isEditing) {
-    // Toggle between display and edit mode
-    const displayElements = eventDiv.querySelectorAll(
-      ".event__name, .event__start, .event__end"
-    );
-    const inputElements = eventDiv.querySelectorAll(
-      ".event__name-input, .event__start-input, .event__end-input"
-    );
+    const spans = eventDiv.querySelectorAll("span");
+    const inputs = eventDiv.querySelectorAll("input");
     const editBtn = eventDiv.querySelector(".event__edit-btn");
     const saveBtn = eventDiv.querySelector(".event__save-btn");
-    const delBtn = eventDiv.querySelector(".event__del-btn");
     const cancelBtn = eventDiv.querySelector(".event__cancel-btn");
+    const deleteBtn = eventDiv.querySelector(".event__del-btn");
 
-    displayElements.forEach(
-      (el) => (el.style.display = isEditing ? "none" : "")
+    spans.forEach(
+      (span) => (span.style.display = isEditing ? "none" : "inline")
     );
-    inputElements.forEach((el) => (el.style.display = isEditing ? "" : "none"));
-    editBtn.style.display = isEditing ? "none" : "";
-    saveBtn.style.display = isEditing ? "" : "none";
-    delBtn.style.display = isEditing ? "none" : "";
-    cancelBtn.style.display = isEditing ? "" : "none";
+    inputs.forEach(
+      (input) => (input.style.display = isEditing ? "inline" : "none")
+    );
+    editBtn.style.display = isEditing ? "none" : "inline-block";
+    saveBtn.style.display = isEditing ? "inline-block" : "none";
+    cancelBtn.style.display = isEditing ? "inline-block" : "none";
+    deleteBtn.style.display = isEditing ? "none" : "inline-block";
   }
 
   onSaveEvent(eventId, eventDiv) {
