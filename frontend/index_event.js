@@ -116,52 +116,55 @@ class EventView {
   }
 
   render(events) {
-    this.eventListDiv.innerHTML = ""; // Clear the current list
+    const eventListTBody = document.querySelector("#event-list tbody");
+    eventListTBody.innerHTML = ""; // Clear the current list
 
     events.forEach((event) => {
-      const eventDiv = document.createElement("div");
-      eventDiv.className = "event";
-      eventDiv.innerHTML = `
-        <div class="event__info" data-id="${event.id}">
+      const eventRow = document.createElement("tr");
+      eventRow.innerHTML = `
+        <td>
           <span class="event__name">${event.eventName}</span>
           <input type="text" class="event__name-input" value="${event.eventName}" style="display: none;"/>
+        </td>
+        <td>
           <span class="event__start">${event.startDate}</span>
           <input type="date" class="event__start-input" value="${event.startDate}" style="display: none;"/>
+        </td>
+        <td>
           <span class="event__end">${event.endDate}</span>
           <input type="date" class="event__end-input" value="${event.endDate}" style="display: none;"/>
-        </div>
-        <div class="event__actions" data-id="${event.id}">
-          <button class="event__edit-btn">Edit</button>
-          <button class="event__save-btn" style="display: none;">Save</button>
-          <button class="event__del-btn">Delete</button>
-          <button class="event__cancel-btn" style="display: none;">Cancel</button>
-        </div>
+        </td>
+        <td>
+          <div class="event__actions">
+            <button class="event__edit-btn">Edit</button>
+            <button class="event__save-btn" style="display: none;">Save</button>
+            <button class="event__del-btn">Delete</button>
+            <button class="event__cancel-btn" style="display: none;">Cancel</button>
+          </div>
+        </td>
       `;
-      this.eventListDiv.appendChild(eventDiv);
+      eventListTBody.appendChild(eventRow);
 
-      // Edit button event listener
-      eventDiv
+      // Attach event listeners to the buttons in eventRow
+      eventRow
         .querySelector(".event__edit-btn")
         .addEventListener("click", () => {
-          this.toggleEdit(eventDiv, true);
+          this.toggleEdit(eventRow, true);
         });
 
-      // Save button event listener
-      eventDiv
+      eventRow
         .querySelector(".event__save-btn")
         .addEventListener("click", () => {
-          this.onSaveEvent(event.id, eventDiv);
+          this.onSaveEvent(event.id, eventRow);
         });
 
-      // Cancel button event listener
-      eventDiv
+      eventRow
         .querySelector(".event__cancel-btn")
         .addEventListener("click", () => {
-          this.toggleEdit(eventDiv, false);
+          this.toggleEdit(eventRow, false);
         });
 
-      // Delete button event listener
-      eventDiv
+      eventRow
         .querySelector(".event__del-btn")
         .addEventListener("click", () => {
           this.onDeleteEvent(event.id);
@@ -169,24 +172,20 @@ class EventView {
     });
   }
 
-  toggleEdit(eventDiv, isEditing) {
-    const spans = eventDiv.querySelectorAll("span");
-    const inputs = eventDiv.querySelectorAll("input");
-    const editBtn = eventDiv.querySelector(".event__edit-btn");
-    const saveBtn = eventDiv.querySelector(".event__save-btn");
-    const cancelBtn = eventDiv.querySelector(".event__cancel-btn");
-    const deleteBtn = eventDiv.querySelector(".event__del-btn");
+  toggleEdit(eventRow, isEditing) {
+    const spans = eventRow.querySelectorAll("span");
+    const inputs = eventRow.querySelectorAll("input");
+    const editBtn = eventRow.querySelector(".event__edit-btn");
+    const saveBtn = eventRow.querySelector(".event__save-btn");
+    const cancelBtn = eventRow.querySelector(".event__cancel-btn");
+    const deleteBtn = eventRow.querySelector(".event__del-btn");
 
-    spans.forEach(
-      (span) => (span.style.display = isEditing ? "none" : "inline")
-    );
-    inputs.forEach(
-      (input) => (input.style.display = isEditing ? "inline" : "none")
-    );
-    editBtn.style.display = isEditing ? "none" : "inline-block";
-    saveBtn.style.display = isEditing ? "inline-block" : "none";
-    cancelBtn.style.display = isEditing ? "inline-block" : "none";
-    deleteBtn.style.display = isEditing ? "none" : "inline-block";
+    spans.forEach((span) => (span.style.display = isEditing ? "none" : ""));
+    inputs.forEach((input) => (input.style.display = isEditing ? "" : "none"));
+    editBtn.style.display = isEditing ? "none" : "";
+    saveBtn.style.display = isEditing ? "" : "none";
+    cancelBtn.style.display = isEditing ? "" : "none";
+    deleteBtn.style.display = isEditing ? "none" : "";
   }
 
   onSaveEvent(eventId, eventDiv) {
